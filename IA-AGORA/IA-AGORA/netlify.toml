@@ -1,0 +1,3 @@
+[functions]
+  included_files = ["netlify/functions/pdfs/*.pdf"]
+  node_bundler = "esbuild"
