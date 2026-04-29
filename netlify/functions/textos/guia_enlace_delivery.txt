@@ -1,0 +1,124 @@
+﻿MANUAL PARA ENLAZAR 
+PLATAFORMAS DE DELIVERY CON 
+
+ÁGORA 
+ 
+
+En este manual veremos los requerimientos, el funcionamiento y algunos consejos para integrar plataformas de 
+delivery con Ágora 
+
+REQUERIMIENTOS 
+
+1. Disponer de una IP fija en el local. Redireccionar el puerto 8984 del router, al equipo que hace de servidor de 
+Ágora. (La misma configuración que se usa para la administración remota) 
+
+2. Actualizar a la última versión de Ágora. 
+
+3. Activar licencia de Servicios de integración (en el monitor de servicio, Ayuda, Activar Licencia). 
+
+4. Activar el módulo de Servicios de integración en el monitor de servicio de Ágora, seleccionando Habilitar 
+integración a través de API HTTP. La clave puede ser alfanumérica y deberá contener 8 caracteres. Esta 
+clave habrá que configurarla en el enlace. 
+
+ 
+
+ 
+
+  
+
+1 Pág.  Inscrita en el Registro Mercantil de Madrid, Tomo 7594 Secc.8ª de Soc. Folio 87, hoja M-122846, Inscripción 13ª C.I.F.: B-78032034 
+
+ 
+
+
+
+   
+ 
+
+5. Crear una nueva serie de pedidos de venta en Agora. 
+
+ 
+
+ 
+
+  
+
+2 Pág.  Inscrita en el Registro Mercantil de Madrid, Tomo 7594 Secc.8ª de Soc. Folio 87, hoja M-122846, Inscripción 13ª C.I.F.: B-78032034 
+
+ 
+
+
+
+   
+ 
+ 
+
+FUNCIONAMIENTO 
+
+ 
+
+Cuando un cliente hace un pedido a una de estas plataformas, en Ágora se generará un pedido de venta. En los 
+parámetros de integración, existe la posibilidad de que se imprima la comanda al recibir el pedido. El momento en 
+el que llega el pedido a Ágora, lo controlará la plataforma integrada, por lo que el pedido debería llegar a Ágora en 
+el momento de empezar a prepararlo.En la comanda en lugar del nombre de la mesa, se mostrará el número de 
+pedido de la plataforma de delivery. 
+
+Cuando el repartidor o el cliente, vayan a recoger el pedido, podremos buscarlo fácilmente en el botón “buscar 
+pedido” en el punto de venta en Ágora. La búsqueda se podrá realizar a través del número de pedido, nombre de 
+cliente, teléfono... etc. 
+
+ 
+
+  
+
+3 Pág.  Inscrita en el Registro Mercantil de Madrid, Tomo 7594 Secc.8ª de Soc. Folio 87, hoja M-122846, Inscripción 13ª C.I.F.: B-78032034 
+
+ 
+
+
+
+   
+ 
+
+ 
+
+ 
+
+El pedido puede llegar a Ágora pagado. En todo caso, para cerrar el pedido, tendremos que darle al botón cobrar. 
+
+ 
+
+ 
+
+  
+
+4 Pág.  Inscrita en el Registro Mercantil de Madrid, Tomo 7594 Secc.8ª de Soc. Folio 87, hoja M-122846, Inscripción 13ª C.I.F.: B-78032034 
+
+ 
+
+
+
+   
+ 
+
+CONSEJOS DE CONFIGURACIÓN EN AGORA 
+
+Recomendamos hacer una configuración complementaria en Ágora para facilitar su uso y seguimiento: 
+
+1. Crear un Centro de Venta “Delivery” para que los pedidos se asignen a este centro de venta 
+
+   
+
+ 
+
+2. Crear una forma de pago por cada plataforma de delivery con la que se trabaje, de tal manera que si nos 
+llegan pedidos como pagados a Ágora, podamos ver en la Z o los informes del sistema, las ventas que 
+hemos realizado con cada plataforma. 
+
+     
+
+ 
+
+ 
+
+5 Pág.  Inscrita en el Registro Mercantil de Madrid, Tomo 7594 Secc.8ª de Soc. Folio 87, hoja M-122846, Inscripción 13ª C.I.F.: B-78032034

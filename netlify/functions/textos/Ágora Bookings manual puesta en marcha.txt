@@ -1,0 +1,211 @@
+﻿Manual: puesta en marcha de un
+restaurante
+
+Configuración de los servicios (comida, cena...)
+
+Menú/ Configuración/ Servicios/ Editar (icono de lápiz).
+
+Nombre de los servicios (por defecto: Comida y Cena): Permite
+definir el nombre del servicio que verán los clientes para diferenciar
+entre comida, cena u otros tipos de servicio.
+Horario de los servicios: Permite definir la fecha de inicio y fin en la
+que los clientes pueden realizar reservas. Este horario no tiene por qué
+coincidir con el horario de apertura del restaurante, sino que
+dependerá del horario de cocina o del tipo de servicio que se quiera
+ofrecer.
+Capacidad del restaurante: Se debe indicar el número total de
+plazas disponibles (sillas, sillones, etc.). Esta información es clave para
+configurar correctamente los servicios (comida, cena, etc.).
+Reservas como solicitudes (Tamaño de grupo): Por defecto, este
+valor está configurado en 1, lo que implica que todas las reservas
+online entran como solicitudes que deben ser aceptadas o rechazadas
+posteriormente. Esta configuración inicial permite a los
+administradores tener un mayor control mientras se familiarizan con la
+plataforma. Sin embargo, se recomienda aumentarlo progresivamente
+para automatizar la gestión. Ejemplo:
+
+ Si se configura en 6, las reservas de 1 a 5 personas se gestionarán
+automáticamente (el sistema asigna mesa y confirma la reserva).
+ Las reservas de 6 o más personas seguirán entrando como
+solicitudes para su gestión manual.
+
+Si no hay disponibilidad, el sistema propondrá horarios alternativos o
+indicará que no hay disponibilidad.
+
+Inscrita en el Registro Mercantil de Madrid, Tomo 7594 Secc. 8º de Soc. Folio 87, hoja M-122846, Inscripción 13ª C.I.F.: B-78032034
+
+
+
+Manual: puesta en marcha de un
+restaurante
+
+Última reserva online: Define la última hora a la que se pueden
+realizar reservas online en el día actual.
+
+Si se fija al inicio del servicio (ej.: 13:00), no se recibirán reservas
+online durante el servicio.
+Si se fija al final del servicio (ej.: 16:00), se seguirán recibiendo
+reservas online hasta esa hora.
+
+⚠️ Importante:
+ Si se permiten reservas durante el servicio, es fundamental registrar
+también las reservas manuales (teléfono o en puerta) para que el
+sistema mantenga actualizado el aforo.
+Tiempo medio: Indica el tiempo medio de ocupación de mesa.
+Ejemplo:
+
+ Si el tiempo medio es 1 hora y 30 minutos, una reserva a las 13:30
+permitirá otra reserva en esa misma mesa a las 15:00.
+
+Se recomienda no ajustar este valor a la baja para evitar esperas en
+el segundo turno.
+Días de apertura (con reserva online):Define los días de la semana
+en los que el restaurante abre.
+
+Ejemplo:
+ Si el restaurante abre de lunes a domingo y cierra los martes, se
+debe desmarcar ese día para evitar que entren reservas.
+
+Días de cierre
+
+Menú/Configuración/Días de cierre
+
+Permite definir los días en los que el restaurante permanece
+completamente cerrado (todos los servicios).
+
+Inscrita en el Registro Mercantil de Madrid, Tomo 7594 Secc. 8º de Soc. Folio 87, hoja M-122846, Inscripción 13ª C.I.F.: B-78032034
+
+
+
+Manual: puesta en marcha de un
+restaurante
+
+Se pueden configurar periodos completos (vacaciones).
+Para cerrar un solo día, se puede indicar la misma fecha de inicio y fin.
+
+⚠️ Recomendación:
+ Configurar los días de cierre con suficiente antelación para evitar
+reservas no deseadas.
+
+Configuraciones avanzadas
+
+Menú/ Configuración/ Servicios:
+
+Configuración de “Cierre Online por Defecto” (icono de
+engranaje): Permite limitar la capacidad del restaurante por servicio
+según el día de la semana. Para cerrar o limitar un día concreto:
+
+Acceder al botón “Online” desde el listado de reservas.
+Ajustar la capacidad (0 para cerrar).
+
+Configuración de plazas por hora (icono del reloj): Evitar picos de
+demanda. Permite limitar la capacidad en franjas horarias
+específicas. Ejemplo:
+
+ Si a las 14:00 se satura el restaurante, se puede limitar al 40% de
+la capacidad, redistribuyendo reservas a otras horas.
+
+Modificar horarios según el día: Permite configurar distintos horarios
+según el día de la semana. Ejemplo:
+
+Lunes a viernes: 13:00 – 16:00
+Fin de semana: 13:30 – 16:00
+
+Para ello, se pueden crear configuraciones distintas (ej.: “L-V” y “S-D”)
+y ajustar la capacidad a 0% en las horas que no se deseen mostrar.
+
+Inscrita en el Registro Mercantil de Madrid, Tomo 7594 Secc. 8º de Soc. Folio 87, hoja M-122846, Inscripción 13ª C.I.F.: B-78032034
+
+
+
+Manual: puesta en marcha de un
+restaurante
+
+Configuración para días concretos. Desde el botón “Día concreto”:
+Crear una nueva configuración.
+Definir fechas de inicio y fin.
+Asignar un nombre (ej.: “Semana Santa”).
+Configurar horarios y capacidad.
+
+💡 Tip:
+ Desde el botón “Online” en reservas puedes ver rápidamente:
+Configuración personalizada → reloj amarillo
+Configuración por defecto → reloj verde
+
+Creación de planos y mesas
+
+Menú/ Configuración/ Plano:
+
+Antes de empezar: Se recomienda dibujar previamente el plano del
+restaurante en papel, incluyendo:
+
+Zonas del restaurante
+Ubicación de mesas
+Nombre y numeración
+Forma (cuadrada, redonda, etc.)
+Capacidad
+Número mínimo y máximo de comensales
+Ejemplo:
+
+ Mesa de 4 personas que acepta de 3 a 4 → “4 (3-4)”
+Organización de planos: Se puede:
+
+Usar un único plano (recomendado para visión global)
+Dividir por zonas (en restaurantes grandes)
+
+Inscrita en el Registro Mercantil de Madrid, Tomo 7594 Secc. 8º de Soc. Folio 87, hoja M-122846, Inscripción 13ª C.I.F.: B-78032034
+
+
+
+Manual: puesta en marcha de un
+restaurante
+
+Identificación de mesas: Definir cuántas mesas hay para cada
+número de comensales (2, 3, 4, etc.). Cuantas más combinaciones
+existan, mayor será la optimización del restaurante.
+
+Creación de mesas en Bookings
+
+Menú/ Configuración/ Mesas/ Añadir mesa
+
+Desde aquí se pueden crear y configurar mesas:
+Nombre (recomendado usar formato “01”, “02”…)
+Capacidad mínima y máxima
+Bloqueo online (solo uso manual)
+Prioridad de uso (alta o baja)
+
+Las mesas se colocan en el plano arrastrándolas.
+
+Ejemplo de asignación automática
+Mesa 01 → 4 pax (min 3, max 4)
+Mesa 02 → 2 pax (solo 2)
+
+Si no hay mesas que acepten 1 persona, no se podrán hacer reservas
+individuales.
+Si se crea:
+
+Mesa 03 → 2 pax (min 1, max 2)
+Entonces sí se permitirán reservas de 1 persona, aunque se perderá una
+plaza.
+
+Combinación de mesas
+
+Menú/ Configuración/ Planos/ Gestionar combinaciones
+
+Inscrita en el Registro Mercantil de Madrid, Tomo 7594 Secc. 8º de Soc. Folio 87, hoja M-122846, Inscripción 13ª C.I.F.: B-78032034
+
+
+
+Manual: puesta en marcha de un
+restaurante
+
+Permite definir qué mesas se pueden unir.
+Ejemplo:
+
+Mesa combinada → “01+02”
+
+Recomendación:
+Asignar prioridad baja a mesas combinadas
+Permite mayor flexibilidad y optimización del aforo
+
+Inscrita en el Registro Mercantil de Madrid, Tomo 7594 Secc. 8º de Soc. Folio 87, hoja M-122846, Inscripción 13ª C.I.F.: B-78032034

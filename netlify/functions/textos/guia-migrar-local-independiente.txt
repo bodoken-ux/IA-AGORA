@@ -1,0 +1,153 @@
+﻿GUIA DE MIGRACIÓN DESDE RETAIL 
+LOCAL INDEPENDIENTE 
+
+Rev. Abril 2024 
+
+ 
+En esta guía veremos los pasos para la migración de una versión Retail a Ágora 7.6.3. 
+
+ 
+
+Antes de llevar a cabo la migración hay que revisar si tenemos integraciones con terceros montadas en Retail, de ser 
+así debemos ponernos en contacto con los integradores para revisar si la integración es compatible con Ágora 7.6.3. 
+
+Debemos saber con qué tipo de licencias está funcionando nuestra instalación de Retail, si son licencias de 
+SUBSCRIPCIÓN o PERPETUAS se pueden registrar en Ágora 7.6.3 simplemente activándolas con sus datos como se 
+hace normalmente (Si son licencias perpetuas debemos asegurarnos de que tienen menos de 1 año desde su 
+activación o que la instalación ya cuenta con una licencia de actualización, de no ser así deberemos adquirir una 
+licencia de actualización para poder llevar a cabo la migración). Si por el contrario son licencias tipo BUNDLE hay que 
+solicitar la baja de Retail y solicitar un nuevo alta para Ágora 7.6.3. 
+
+Migración: 
+
+1. Actualizar Retail a la última versión (3.9.1). 
+ 
+
+2. Instalar Ágora 7.6.3 con su SQL. (En el asistente de configuración seleccionar datos de ejemplo o configuración 
+personalizada, es indiferente, ya que luego esa base de datos será sustituida por la de Retail) 
+
+ 
+3. Realizar un Backup en Retail con todos los TPVS ya parados. 
+
+ 
+ 
+ 
+
+1 Pág.  Inscrita en el Registro Mercantil de Madrid, Tomo 7594 Secc.8ª de Soc. Folio 87, hoja M-122846, Inscripción 13ª C.I.F.: B-78032034 
+ 
+
+
+
+   
+ 
+
+ 
+4. Descomprimir el zip del migrador. 
+
+ 
+5. En la carpeta donde previamente hemos descomprimido el migrador copiar el Backup realizado y el 
+
+sever.settings.xml de Retail (Este último lo encontraremos dentro de la carpeta de instalación de Ágora Retail)  
+ 
+
+ 
+ 
+
+6. Ejecutar migrador.cmd como Administrador y automáticamente empezará la migración. 
+ 
+
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+
+2 Pág.  Inscrita en el Registro Mercantil de Madrid, Tomo 7594 Secc.8ª de Soc. Folio 87, hoja M-122846, Inscripción 13ª C.I.F.: B-78032034 
+ 
+
+
+
+   
+ 
+
+ 
+7. Una vez finalizada nos mostrará el resultado, si no se muestra ningún error la migración habrá finalizado con 
+
+éxito y nos pedirá pulsar cualquier tecla para finalizar. 
+
+ 
+ 
+
+8. Activamos las licencias en Ágora 7.6.3 teniendo en cuenta lo comentado al inicio del documento. 
+ 
+
+9. Ejecutar tanto el punto de venta como la administración de Ágora 7.6.3 y revisar que los datos se han migrado 
+correctamente. 
+
+ 
+ 
+
+10. Desinstalar Ágora Retail. 
+
+ 
+ 
+ 
+
+ 
+ 
+ 
+
+3 Pág.  Inscrita en el Registro Mercantil de Madrid, Tomo 7594 Secc.8ª de Soc. Folio 87, hoja M-122846, Inscripción 13ª C.I.F.: B-78032034 
+ 
+
+
+
+   
+ 
+
+ 
+11. Deshabilitar y detener el servicio SQL Server (AGORARETAIL). Para ello:  
+
+-Accedemos a Administración de Equipos>Servicios y aplicaciones>Servicios. 
+
+ 
+ 
+-Buscamos el servicio SQL Server (AGORARETAIL), lo seleccionamos y pulsamos Detener el servicio. 
+
+ 
+
+4 Pág.  Inscrita en el Registro Mercantil de Madrid, Tomo 7594 Secc.8ª de Soc. Folio 87, hoja M-122846, Inscripción 13ª C.I.F.: B-78032034 
+ 
+
+
+
+   
+ 
+
+ 
+-Seleccionamos el servicio SQL Server (AGORARETAIL)>Botón derecho>Propiedades. 
+
+ 
+
+ 
+
+-En la pestaña General en Tipo de inicio seleccionar Deshabilitado y pulsar aceptar para guardar los cambios. 
+
+ 
+ 
+
+12. Si hemos seguido todos los pasos ya podemos utilizar Ágora 7.6.3 con total normalidad con los datos que 
+teníamos previamente en Retail. Si fuese necesario, con la base de datos ya migrada se podría actualizar a una 
+versión más moderna de Ágora siguiendo para ello el procedimiento habitual. 
+ 
+
+ 
+
+ 
+
+5 Pág.  Inscrita en el Registro Mercantil de Madrid, Tomo 7594 Secc.8ª de Soc. Folio 87, hoja M-122846, Inscripción 13ª C.I.F.: B-78032034

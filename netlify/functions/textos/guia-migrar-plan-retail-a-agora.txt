@@ -1,0 +1,45 @@
+﻿GUIA DE CAMBIO DE PLAN RETAIL A ÁGORA 
+Rev. Abril 2024 
+
+ 
+En esta guía veremos los pasos para dar de baja un plan de Retail y realizar un nuevo alta para Ágora. 
+
+ 
+
+¡IMPORTANTE! Seguir en orden todos los pasos que se detallan en esta guía y completarla, ya que de no ser así, 
+podríamos dejar al cliente sin trabajar o que a este se le facturen varios planes. 
+
+ 
+
+Pasos: 
+
+1. Dar de baja el plan de Retail.  
+Para ello desde el portal de www.agorapos.com logueados con nuestra cuenta accederemos al apartado Buscar 
+Planes, buscaremos el plan de Retail que queremos dar de baja y una vez localizado simplemente debemos 
+pulsar la X sobre el plan a cancelar deseado como muestra la siguiente imagen. 
+
+ 
+ 
+Nos solicitará una fecha y un motivo de cancelación en el que debemos seleccionar la opción Migración de Retail 
+a Ágora 7.6.3 y pulsar Aceptar. 
+
+ 
+
+1 Pág.  Inscrita en el Registro Mercantil de Madrid, Tomo 7594 Secc.8ª de Soc. Folio 87, hoja M-122846, Inscripción 13ª C.I.F.: B-78032034 
+ 
+
+
+
+   
+ 
+
+ 
+
+2. Dar de alta un nuevo plan para Ágora. 
+Para ello accederemos al apartado Contratos>Alta de plan, seleccionaremos el nuevo plan y en comentarios 
+indicaremos el mismo motivo que indicamos en la cancelación ( Migración de Retail a Ágora 7.6.3 ) y pulsaremos 
+ENVIAR SOLICITUD.
+
+ 
+
+2 Pág.  Inscrita en el Registro Mercantil de Madrid, Tomo 7594 Secc.8ª de Soc. Folio 87, hoja M-122846, Inscripción 13ª C.I.F.: B-78032034

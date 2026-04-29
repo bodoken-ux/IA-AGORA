@@ -1,0 +1,37 @@
+﻿Configurar Balanza Epelsa 56ppi para Ágora 
+
+ 
+ 
+
+1.  Pulsar la tecla  y encender la balanza a la vez, hasta que en el display 
+aparezca la versión de programa. 
+
+ 
+
+2.  Pulsar  2 segundos hasta que el display muestre SETUP. 
+
+ 
+
+3.  Pulsar  hasta que aparezca USUAL 
+
+ 
+
+4.  Pulsar  y en el display se mostrara el protocolo RS232 Tipo A-1 
+
+ 
+
+5.  Pulsar  las veces necesarias para seleccionar el protocolo B-1 
+
+ 
+
+6.  Pulsar  para grabar, nos aparece en display “good” y se reinicia la 
+balanza. 
+
+ 
+ 
+
+ 
+
+ 
+
+1 Pág.  Inscrita en el Registro Mercantil de Madrid, Tomo 7594 Secc.8ª de Soc. Folio 87, hoja M-122846, Inscripción 13ª C.I.F.: B-78032034

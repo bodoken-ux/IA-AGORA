@@ -1,0 +1,124 @@
+﻿Guía de configuración
+de datáfonos de Ágora
+
+Payments.
+
+www.agorapos.com
+
+
+
+Puedes ver cómo aplicar estas configuraciones y
+más información relevante aquí 
+
+Puedes ver el informe de transacciones de Ágora
+Payments aquí.
+
+Requisitos: 
+
+Para instalar datáfonos de Ágora Payments,
+debemos instalar la versión más actualizada de
+Ágora. 
+Los datáfonos de Ágora Payments, no consumen
+licencia de pasarela de pago ni de comandera,
+por lo que no será necesaria ninguna licencia
+adicional para usarlos. 
+
+www.agorapos.com
+
+
+
+Configuración en 01
+Ágora
+
+Activar el módulo de pasarela de pago desde el monitor de
+Ágora/herramientas/activar módulos adicionales. No hará falta
+habilitar el módulo de pago en mesa. 
+
+www.agorapos.com
+
+
+
+Configuración en 01
+Ágora
+
+Desde Administración/Herramientas/Pasarelas de
+pago/Configuraciones, crear una configuración de Ágora payments
+para cada datáfono, indicando un nombre que nos ayude a identificarlo.
+Después, editando la configuración, indicar el ApyKey que se le envía al
+cliente y el número de serie del datáfono. El apartado “URL del servicio”
+no habrá que modificarlo.
+
+www.agorapos.com
+
+
+
+Configuración en 01
+Ágora
+
+Crear una forma de pago desde administración/formas de pago que se
+puede llamar Ágora payments, que tenga marcado los check de: permitir
+usar en documentos de venta, permitir usar en devoluciones, registrar
+propina y usar pasarela de pago. 
+
+www.agorapos.com
+
+
+
+Configuración en 01
+Ágora
+
+Crear una acción personalizada desde
+administración/herramientas/acciones personalizadas de tipo “cobro
+directo” con la creado previamente, y con el check de permitir introducir
+importe y prepagos. 
+
+www.agorapos.com
+
+
+
+Configuración en 01
+Ágora
+
+Importante:
+Configurar los botones de la comandera quitando el botón de pagos y
+dejando accesible el botón de cobro directo que hemos creado.*
+*si no hacemos esto, podremos generar confusión en el uso y descuadres
+de cobros con tarjeta
+
+www.agorapos.com
+
+
+
+Configuración en 01
+Ágora
+
+Crear un punto de venta tipo comandera para cada uno de los
+datáfonos: 
+
+Con el check de permitir realizar ticket y movimiento de caja.
+Con la pasarela de pago activada apuntando a cada una de las
+configuraciones que creamos en el primer paso.
+Indicando que tiene un TPV maestro donde queremos que se imputen
+las ventas de los datáfonos-comandera.
+
+www.agorapos.com
+
+
+
+Configuración del 02
+datáfono
+
+Conectar el dispositivo a la red wifi del local, accediendo a configuración
+(clave 3702) y configurando la conexión con IP automática. La red wifi
+deberá tener conexión a internet.
+
+Configurar la aplicación de Ágora comandas indicando
+http://IP.SERVIDOR:8982 (como cualquier comandera) y seleccionar el
+punto de venta creado anteriormente específico para este datáfono.
+
+Nota: Es importante explicar cómo funciona la pantalla de pagos a los
+usuarios que vayan a utilizar los datáfonos, ya que, aunque hayamos
+quitado el botón de pagos, al dividir un ticket o generar una devolución se
+utilizará la pantalla de pagos. Más info: AQUÍ
+
+www.agorapos.com

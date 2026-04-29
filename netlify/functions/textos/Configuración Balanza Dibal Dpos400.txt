@@ -1,0 +1,66 @@
+﻿Configurar Balanza Dibal DPOS400 para Ágora 
+ 
+
+ 
+
+1.  Encender la balanza, durante la cuenta decreciente, antes de llegar a 0, pulsar al mismo tiempo las teclas
+
+y , antes de que pasen 2 segundos, soltar la tecla y después la tecla . 
+
+ 
+
+ 
+
+2. Si hemos realizado bien el paso anterior, la balanza mostrara un par de segundos la imagen uno  y 
+después pasara a la imagen dos. En caso de no mostrarse esto, repetir el paso 1 
+
+ 
+
+ 
+
+3.  Cuando tengamos la balanza en la siguiente pantalla: 
+
+ 
+
+Pulsar la tecla durante alrededor de dos segundos, se mostrará en el display la siguiente pantalla. Si se 
+mantiene mucho tiempo pulsado este botón la balanza se apagará.  
+
+ 
+
+ 
+
+1 Pág.  Inscrita en el Registro Mercantil de Madrid, Tomo 7594 Secc.8ª de Soc. Folio 87, hoja M-122846, Inscripción 13ª C.I.F.: B-78032034 
+ 
+
+
+
+   
+ 
+
+ 
+
+ 
+
+Pulsa la tecla  para cambiar de pantalla, hasta que se muestre: PROTOC y un número. 
+
+ 
+
+ 
+
+Con las teclas y  ir cambiando el número de PROTOC hasta que sea 10.  
+
+ 
+
+4. Pulsar repetidamente la tecla  hasta que en la pantalla muestre “ESPERE”, después la balanza 
+volverá a mostrar la pantalla: 
+ 
+
+  
+
+Mantener pulsada la tecla   hasta que la balanza se apague. 
+
+ 
+
+ 
+
+2 Pág.  Inscrita en el Registro Mercantil de Madrid, Tomo 7594 Secc.8ª de Soc. Folio 87, hoja M-122846, Inscripción 13ª C.I.F.: B-78032034

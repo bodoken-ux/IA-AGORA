@@ -1,0 +1,258 @@
+﻿Consejos sobre instalaciones Wifi
+Comanderas Ágora
+
+Versión octubre 2019 
+
+Antes de realizar cualquier instalación WiFi, es fundamental comprender
+una serie de conceptos clave que serán de gran utilidad:
+
+La conexión inalámbrica siempre es menos estable que la conexión
+por cable. Esto implica que no se puede garantizar un funcionamiento
+óptimo de forma continua. Siempre que sea posible, se recomienda
+utilizar conexión por cable de red.
+La aplicación de comandera, al igual que el sistema Ágora,
+funciona en tiempo real contra un servidor. Por ello, es
+especialmente sensible a la calidad de la red. No es lo mismo cargar
+una página de Facebook que registrar una comanda: mientras que la
+primera puede funcionar con poca cobertura, la segunda requiere una
+conexión estable y de calidad.
+No se deben utilizar redes Wifi proporcionadas por los equipos del
+proveedor de telefonía (Telefónica, Vodafone, etc.).
+Añadir más puntos de acceso o utilizar antenas de mayor ganancia
+no garantiza una mejor cobertura. De hecho, en muchos casos puede
+resultar contraproducente.
+El uso de la banda de 5 GHz en lugar de 2,4 GHz sin ajustar la
+ubicación de los puntos de acceso puede empeorar la cobertura. La
+señal en 5 GHz tiene menos de la mitad de alcance que en 2,4 GHz y
+presenta mayor dificultad para atravesar obstáculos.
+La aplicación de comandas de Ágora es una aplicación web que se
+ejecuta en navegadores como Chrome o Safari. Esta aplicación
+intercambia datos continuamente con el servidor a través de la red
+(en este caso, WiFi). La animación de la rueda amarilla que aparece 
+
+Inscrita en el Registro Mercantil de Madrid, Tomo 7594 Secc. 8º de Soc. Folio 87, hoja M-122846, Inscripción 13ª C.I.F.: B-78032034
+
+
+
+Consejos sobre instalaciones Wifi
+Comanderas Ágora
+
+Versión octubre 2019 
+
+en la parte superior derecha indica que la aplicación está esperando
+una respuesta del servidor. Es decir, la solicitud ya se ha enviado y el
+sistema está a la espera de recibir los datos.
+
+Si la animación de carga permanece visible durante demasiado
+tiempo, indica un problema en la comunicación. Concretamente, existe
+una incidencia entre el navegador y el servicio de Windows que
+gestiona las peticiones de los distintos puntos de venta (comanderas o
+TPVs).
+
+Si ocurre únicamente en determinadas zonas, es muy probable que
+se deba a una falta de cobertura WiFi.
+Si sucede en momentos concretos, especialmente cuando hay
+mayor afluencia de clientes, puede deberse tanto a una cobertura
+deficiente como a falta de recursos del servidor o a una instalación
+de red inadecuada (cableada o inalámbrica).
+
+Inscrita en el Registro Mercantil de Madrid, Tomo 7594 Secc. 8º de Soc. Folio 87, hoja M-122846, Inscripción 13ª C.I.F.: B-78032034
+
+
+
+Consejos sobre instalaciones Wifi
+Comanderas Ágora
+
+Versión octubre 2019 
+
+Si la ralentización es constante, lo más probable es que la
+instalación sea defectuosa o que exista una alta saturación de
+redes WiFi en el entorno.
+
+El uso de antenas de mayor ganancia no garantiza una mejora del
+rendimiento del sistema. Aunque esto pueda amplificar la señal del
+punto de acceso, los dispositivos (comanderas o TPVs) mantienen su
+capacidad de transmisión original.
+
+ Esto significa que, aunque el terminal pueda recibir mejor la señal,
+no puede enviarla con mayor potencia. Como consecuencia, el
+servidor recibe la señal de forma deficiente y la comunicación
+continúa siendo inestable.
+En estos casos, la solución adecuada es instalar un nuevo punto de
+acceso.
+
+Los pasos a seguir antes de realizar cualquier instalación inalámbrica son
+los siguientes:
+
+Analizar las dimensiones y características del local: es fundamental
+conocer el espacio al que se quiere dar cobertura. No es lo mismo un
+área abierta que un salón cerrado, ni un local ubicado en una zona
+con alta saturación de redes WiFi que otro con poco tráfico
+inalámbrico.
+Utilizar herramientas de medición como apoyo durante la
+instalación: el móvil puede ser una herramienta muy útil. Aplicaciones
+como WiFi Analyzer, disponible de forma gratuita en Google Play,
+permiten analizar la calidad de la señal y las redes disponibles.
+
+Inscrita en el Registro Mercantil de Madrid, Tomo 7594 Secc. 8º de Soc. Folio 87, hoja M-122846, Inscripción 13ª C.I.F.: B-78032034
+
+
+
+Consejos sobre instalaciones Wifi
+Comanderas Ágora
+
+Versión octubre 2019 
+
+Identificar los canales WiFi menos saturados: determinar qué
+canales están menos ocupados es clave para optimizar el rendimiento
+de la red. Herramientas como WiFi Analyzer permiten visualizar las
+redes cercanas y los canales en los que operan. Aunque habitualmente
+se utilizan los canales 1, 6 y 11 (ya que no se solapan entre sí), esto
+puede provocar una alta saturación. En muchos casos, puede ser más
+recomendable utilizar canales como el 3, 4, 8 o 9.
+
+Inscrita en el Registro Mercantil de Madrid, Tomo 7594 Secc. 8º de Soc. Folio 87, hoja M-122846, Inscripción 13ª C.I.F.: B-78032034
+
+
+
+Consejos sobre instalaciones Wifi
+Comanderas Ágora
+
+Versión octubre 2019 
+
+Optimizar el número de puntos de acceso: Se recomienda utilizar el
+menor número posible de puntos de acceso, siempre garantizando una
+cobertura óptima. Es imprescindible asegurar que, en las zonas de
+trabajo, la señal no descienda en ningún momento por debajo de -70
+dBm. Cuando la señal recibida por la comandera es baja, el sistema
+reduce automáticamente la velocidad de transmisión, lo que provoca un
+aumento de los tiempos de respuesta y posibles retardos en la
+operativa.
+
+Alcance de la señal según entorno y frecuencia: en interiores diáfanos,
+un punto de acceso en la banda de 2,4 GHz puede proporcionar 
+
+Inscrita en el Registro Mercantil de Madrid, Tomo 7594 Secc. 8º de Soc. Folio 87, hoja M-122846, Inscripción 13ª C.I.F.: B-78032034
+
+
+
+Consejos sobre instalaciones Wifi
+Comanderas Ágora
+
+Versión octubre 2019 
+
+cobertura con un radio aproximado de 15 a 30 metros.
+En espacios con techos bajos, el alcance difícilmente superará los
+20 metros.
+En espacios con techos altos, puede llegar a superar los 30 metros.
+
+En el caso de la banda de 5 GHz, estos valores deben reducirse
+aproximadamente a un tercio, debido a su menor alcance y
+capacidad de penetración.
+En espacios abiertos, el alcance puede ser mayor, pudiendo llegar
+teóricamente hasta 50 metros. Sin embargo, en estas condiciones se
+pierde parte de la capacidad de rebote de la señal (propia de
+tecnologías como 802.11n), por lo que la línea de visibilidad entre la
+comandera y el punto de acceso adquiere mayor importancia.
+Atenuación de la señal y pérdidas por obstáculos: Para hacernos una
+idea de la medida de potencia en escala logarítmica, debemos
+entender que cada pérdida de 3 dB en la señal implica que esta se
+reduce a la mitad. El paso de la señal a través de objetos tiene un
+coste elevado. Atravesar una pared de yeso supone una pérdida de
+unos 5 dB; si es de ladrillo, unos 15 dB; y si es de cemento, puede
+alcanzar hasta 30 dB. Una ventana con marco metálico implica una
+pérdida de unos 6 dB, una persona unos 9 dB y una estantería de
+bebidas alrededor de 20 dB. A todo esto hay que sumar la atenuación
+producida por el aire, que aumenta exponencialmente a medida que
+crece la distancia entre antenas.
+Roaming entre puntos de acceso: otro factor importante es el
+roaming. En las instalaciones donde es necesario disponer de más de
+un punto de acceso, es fundamental asegurarse de que la transición
+que realiza la comandera de uno a otro se realice de forma.
+
+Inscrita en el Registro Mercantil de Madrid, Tomo 7594 Secc. 8º de Soc. Folio 87, hoja M-122846, Inscripción 13ª C.I.F.: B-78032034
+
+
+
+Consejos sobre instalaciones Wifi
+Comanderas Ágora
+
+Versión octubre 2019 
+
+adecuada. Para ello, es necesario que cada punto de acceso trabaje
+en un canal sensiblemente distinto, dejando entre ellos al menos un
+margen de dos canales. Por ejemplo, configurando los puntos de
+acceso en los canales 1, 4, 7 y 10, de forma que no se solapen sus zonas
+de influencia.
+Funcionamiento del roaming en la comandera: el proceso de
+roaming consiste en que la comandera se conecta a un nuevo punto
+de acceso que tiene el mismo nombre de red. En las últimas versiones
+de Android, para comprobar que se trata de la misma red, el sistema
+verifica que, desde el nuevo punto de acceso al que se va a conectar,
+la dirección de la puerta de enlace existe y tiene la misma dirección
+MAC. Es decir, si no configuramos la comandera con una puerta de
+enlace, el proceso de roaming no se realizará correctamente y, en su
+lugar, el dispositivo se comportará como si se conectase a una red
+diferente. Para evitarlo, basta con configurar como puerta de enlace
+el servidor de Ágora, ya sea en modo estático o dinámico, pero nunca
+dejar este campo en blanco ni utilizar una dirección no accesible.
+Configuración del firewall en el servidor: Deshabilitar el firewall en
+el servidor de Ágora puede mejorar los tiempos de respuesta. En
+ocasiones, aun estando correctamente configurado, puede originar
+problemas de conexión, especialmente cuando la comandera regresa
+de un estado de suspensión.
+Configuración WiFi en modo suspensión: en este sentido, configurar
+la comandera para que la conexión WiFi se apague mientras está en
+suspensión, además de ayudar a aumentar la duración de la batería,
+puede evitar problemas de conexión al salir de dicho estado.
+
+Inscrita en el Registro Mercantil de Madrid, Tomo 7594 Secc. 8º de Soc. Folio 87, hoja M-122846, Inscripción 13ª C.I.F.: B-78032034
+
+
+
+Consejos sobre instalaciones Wifi
+Comanderas Ágora
+
+Versión octubre 2019 
+
+Pérdidas de conexión fuera de cobertura: debemos tener en cuenta
+que, si las comanderas se mueven por zonas donde no hay cobertura
+(como pasillos, escaleras, cocina, etc.), cada vez que vuelvan a una
+zona con señal necesitarán un tiempo para reconectarse, ya que no se
+trata de un proceso de roaming. En la medida de lo posible, conviene
+evitar este tipo de situaciones.
+
+La forma más fácil de verificar que la cobertura WiFi del local es correcta
+consiste en recorrerlo con la comandera, cambiando de centro de venta
+de forma constante y, a ser posible, de espaldas al punto de acceso. Si
+observamos que en algunos puntos el proceso se ralentiza, significa que
+existe una zona de sombra.
+Este proceso puede complementarse realizando un ping constante desde
+el servidor de Ágora a la comandera. Si se pierden paquetes o aumentan
+los tiempos de respuesta, indica el mismo problema. La sombra detectada
+puede deberse a falta de cobertura en la zona o a un proceso de
+roaming que no se realiza correctamente, posiblemente porque los puntos
+de acceso están demasiado próximos o mal configurados.
+
+Conviene destacar que, si utilizamos como comandera un iPhone, los
+resultados pueden ser sensiblemente mejores que con un dispositivo
+Android. En algunos casos, esta diferencia puede incluso determinar la
+viabilidad de la instalación. Esto se debe a que tanto la implementación
+de la pila de protocolos TCP/IP, como el comportamiento web y la
+capacidad del hardware para diferenciar la señal del ruido, están más
+optimizados en estos dispositivos.
+
+Inscrita en el Registro Mercantil de Madrid, Tomo 7594 Secc. 8º de Soc. Folio 87, hoja M-122846, Inscripción 13ª C.I.F.: B-78032034
+
+
+
+Consejos sobre instalaciones Wifi
+Comanderas Ágora
+
+Versión octubre 2019 
+
+Por ello, en instalaciones que presenten más problemas, puede ser
+recomendable realizar pruebas con un iPhone para comparar resultados y
+acotar mejor el origen de la incidencia.
+
+Inscrita en el Registro Mercantil de Madrid, Tomo 7594 Secc. 8º de Soc. Folio 87, hoja M-122846, Inscripción 13ª C.I.F.: B-78032034

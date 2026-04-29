@@ -1,0 +1,32 @@
+﻿Configuración balanza Marte 10 v4 para Ágora 
+
+ 
+1. Conectar la balanza a la red eléctrica y encenderla. 
+
+ 
+2.  Para entrar en la configuración de la balanza, deberemos pulsar la tecla MENU y pulsar el 
+
+código 111111 mediante las teclas negras. Pulsa la tecla MENU. 
+
+3.  n el visor de la balanza aparecerá MEnu 1. A través de la tecla D  iremos cambiando de 
+
+valor, hasta que aparezca SPEC 1 Opt10, pulsar la tecla MENU y pulsar el 
+
+código 111111 mediante las teclas negras. Pulsa la tecla MENU 
+
+4. En el visor de la balanza aparecerá PrOG PASSW2 111111 . A través de la tecla MENU iremos 
+
+cambiando de valor, hasta que aparezca ConEH tPU nO COnH, pulsar la tecla A repetidamente 
+
+hasta que en la pantalla cambie a: ConEH tPU TYPE 0. 
+
+5. Con la tecla MENU iremos cambiando de valor, hasta que aparezca TPU TYPE 0 TYPE 
+
+A, pulsar la tecla A para que la pantalla cambie a: TPU TYPE 0 TYPE B pulsar una vez la 
+
+tecla MENU. 
+ 
+
+6. Pulsar la tecla K+ varias veces hasta salir a la pantalla de peso 
+
+1 Pág.  Inscrita en el Registro Mercantil de Madrid, Tomo 7594 Secc.8ª de Soc. Folio 87, hoja M-122846, Inscripción 13ª C.I.F.: B-78032034

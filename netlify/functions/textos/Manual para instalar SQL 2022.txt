@@ -1,0 +1,69 @@
+﻿Manual para instalar SQL 2022 a
+mano para Ágora 
+
+1.En la carpeta del instalador de Ágora 8.5 o superior, encontrarás una
+carpeta llamada SqlExpress. Accede a esta carpeta y ejecuta
+SQLEXPR_x64_ENU.exe Si tienes una versión anterior de Ágora que no
+contiene SQL2022, descarga una versión 8.5 o superior para encontrar
+el instalador. 
+
+2.Sigue los pasos de las siguientes capturas de pantalla para completar
+la instalación:
+
+Inscrita en el Registro Mercantil de Madrid, Tomo 7594 Secc. 8º de Soc. Folio 87, hoja M-122846, Inscripción 13ª C.I.F.: B-78032034
+
+
+
+Manual para instalar SQL 2022 a
+mano para Ágora 
+
+Inscrita en el Registro Mercantil de Madrid, Tomo 7594 Secc. 8º de Soc. Folio 87, hoja M-122846, Inscripción 13ª C.I.F.: B-78032034
+
+
+
+Manual para instalar SQL 2022 a
+mano para Ágora 
+
+Inscrita en el Registro Mercantil de Madrid, Tomo 7594 Secc. 8º de Soc. Folio 87, hoja M-122846, Inscripción 13ª C.I.F.: B-78032034
+
+
+
+Manual para instalar SQL 2022 a
+mano para Ágora 
+
+Si estás instalando Ágora Restaurant, la instancia se llamará Ágora. SI
+estás instalando Ágora Retail, la instancia se llamará ÁgoraRetail 
+
+Inscrita en el Registro Mercantil de Madrid, Tomo 7594 Secc. 8º de Soc. Folio 87, hoja M-122846, Inscripción 13ª C.I.F.: B-78032034
+
+
+
+Manual para instalar SQL 2022 a
+mano para Ágora 
+
+3.Una vez completada la instalación del SQL, accede a los servicios de
+Windows, busca el servicio "SQL Server (ÁGORA)" y cambia el inicio de
+sesión a "cuenta del sistema local". Una vez hecho este cambio,
+reinicia el servicio.
+
+Inscrita en el Registro Mercantil de Madrid, Tomo 7594 Secc. 8º de Soc. Folio 87, hoja M-122846, Inscripción 13ª C.I.F.: B-78032034
+
+
+
+Manual para instalar SQL 2022 a
+mano para Ágora 
+
+4. Instala Ágora. En el caso de que ya esté instalado, desinstálalo y
+vuelve a instalarlo.
+
+5. Abre el monitor del servicio de Ágora, accede a
+herramientas/configurar servidor y pincha en crear base de datos.
+La base de datos se habrá creado cuando el icono del ratón deje de
+mostrar el reloj.
+
+6. Una vez creada la base de datos, podremos lanzar un asistente de
+configuración desde el monitor de Ágora en Datos/Asistente de
+configuración, o recuperar un backup desde Datos/Copia de
+seguridad/Recuperar
+
+Inscrita en el Registro Mercantil de Madrid, Tomo 7594 Secc. 8º de Soc. Folio 87, hoja M-122846, Inscripción 13ª C.I.F.: B-78032034

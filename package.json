@@ -1,7 +1,5 @@
 {
   "name": "ia-agora",
   "version": "1.0.0",
-  "dependencies": {
-    "pdf-parse": "^1.1.1"
-  }
+  "description": "Oráculo de texto plano ultra rápido"
 }

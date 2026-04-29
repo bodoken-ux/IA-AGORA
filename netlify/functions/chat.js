@@ -1,6 +1,5 @@
 const fs = require('fs');
 const path = require('path');
-const pdf = require('pdf-parse');
 
 exports.handler = async function(event, context) {
     const headers = {
@@ -19,24 +18,30 @@ exports.handler = async function(event, context) {
     try {
         const body = JSON.parse(event.body);
         const userMessage = body.message;
-        const chatHistory = body.history || []; // Recibimos la memoria de la conversación
+        const chatHistory = body.history || []; 
 
         const normalize = (str) => str.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase();
 
-        // 1. LEER PDFs
-        let pdfFolder = path.join(__dirname, 'pdfs');
-        if (!fs.existsSync(pdfFolder)) {
-            pdfFolder = path.join(process.cwd(), 'netlify/functions/pdfs');
+        // 1. LEER LOS ARCHIVOS DE TEXTO (.TXT) DE FORMA ULTRA RÁPIDA
+        let textFolder = path.join(__dirname, 'textos');
+        if (!fs.existsSync(textFolder)) {
+            textFolder = path.join(process.cwd(), 'netlify/functions/textos');
         }
 
         let fullText = "";
-        if (fs.existsSync(pdfFolder)) {
-            const files = fs.readdirSync(pdfFolder).filter(file => file.toLowerCase().endsWith('.pdf'));
+        if (fs.existsSync(textFolder)) {
+            const files = fs.readdirSync(textFolder).filter(file => file.toLowerCase().endsWith('.txt'));
             for (const file of files) {
-                const dataBuffer = fs.readFileSync(path.join(pdfFolder, file));
-                const data = await pdf(dataBuffer);
-                fullText += `\n--- MANUAL: ${file} ---\n` + data.text + "\n";
+                // Leemos el txt directamente con formato utf8
+                const textContent = fs.readFileSync(path.join(textFolder, file), 'utf8');
+                // Etiquetamos de dónde viene sin la extensión .txt
+                const manualName = file.replace('.txt', '').toUpperCase();
+                fullText += `\n--- MANUAL: ${manualName} ---\n` + textContent + "\n";
             }
+        }
+
+        if (fullText.trim() === "") {
+             return { statusCode: 200, headers, body: JSON.stringify({ reply: "No encuentro archivos .txt en la carpeta textos." }) };
         }
 
         // 2. CHUNKING CON SOLAPAMIENTO

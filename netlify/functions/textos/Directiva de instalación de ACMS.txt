@@ -1,0 +1,201 @@
+﻿Directiva de instalación de ACMS
+Ágora - ACMS
+
+Versión octubre 2019 
+
+El objeto de este documento es mostrar las pautas que deben seguirse
+para realizar una instalación adecuada del sistema centralizado de
+Ágora (ACMS):
+
+Debe instalarse en un servidor dedicado. No puede convivir con otras
+aplicaciones ejecutándose simultáneamente, salvo aquellas
+imprescindibles para la realización de copias de seguridad y, si fuera
+necesario, el acceso remoto.
+La memoria mínima del equipo debe ser de 4 GB; no es necesaria más
+para la versión Express de SQL Server, ya que solo maneja hasta 1 GB.
+En los casos en los que se instale la versión profesional, la memoria
+deberá incrementarse de forma considerable, ya que es uno de los
+factores fundamentales para su rendimiento.
+El ACMS no consume grandes recursos de CPU, pero es necesario
+asegurarse de que estos estén disponibles. Por ello, como se ha
+indicado en el primer punto, no deben ejecutarse otras aplicaciones
+en el servidor. Un procesador actual de doble núcleo, como un i3 a 3
+GHz, es suficiente para la mayoría de las instalaciones.
+El sistema operativo debe ser siempre Windows Server, nunca versiones
+cliente. Las distintas versiones de Windows 10 se actualizan de forma
+constante y consumen muchos recursos del sistema; con ellas
+instaladas es imposible asegurar un rendimiento adecuado del ACMS.
+Además, pueden provocar reinicios no deseados de la máquina
+debido a actualizaciones que Microsoft considera críticas. La licencia
+del sistema operativo debe estar activada y registrada; de lo
+contrario, pueden producirse efectos no deseados en la estabilidad
+del sistema.
+
+Inscrita en el Registro Mercantil de Madrid, Tomo 7594 Secc. 8º de Soc. Folio 87, hoja M-122846, Inscripción 13ª C.I.F.: B-78032034
+
+
+
+Directiva de instalación de ACMS
+Ágora - ACMS
+
+Versión octubre 2019 
+
+No instalar antivirus adicionales. Utilizar únicamente Windows
+Defender, que viene incluido por defecto en el sistema operativo.
+Instalar Ágora con la configuración por defecto, sin realizar
+modificaciones durante el proceso de instalación. Si surge cualquier
+problema, se debe contactar con el servicio de soporte de IGT.
+Cualquier modificación puede generar incidencias en futuras
+actualizaciones, por lo que no es recomendable asumir ese riesgo. Es
+posible que, dependiendo de la versión de Windows Server utilizada,
+aparezca un error relacionado con el uso de contraseñas débiles. En
+ese caso, la mejor opción es habilitar esta configuración previamente
+desde:
+
+Panel de control → Herramientas administrativas → Directivas
+de seguridad local → Directivas de cuentas → Directivas de
+contraseñas.
+
+Inscrita en el Registro Mercantil de Madrid, Tomo 7594 Secc. 8º de Soc. Folio 87, hoja M-122846, Inscripción 13ª C.I.F.: B-78032034
+
+
+
+Directiva de instalación de ACMS
+Ágora - ACMS
+
+Versión octubre 2019 
+
+También es conveniente deshabilitar el periodo de caducidad de las
+contraseñas. Esta operación se realiza en el mismo apartado:
+
+Panel de control → Herramientas administrativas → Directivas
+de seguridad local → Directivas de cuentas → Directivas de
+contraseñas.
+
+Dejar abiertos únicamente los puertos de entrada necesarios para el
+funcionamiento del ACMS. Por defecto, el 8984 para Restaurant y el
+9984 para Retail.
+Si se habilita el acceso a la máquina mediante Remote Desktop, se
+debe eliminar el permiso de inicio de sesión remoto al usuario
+AGORA_SERVICE. Para ello, es necesario configurarlo desde:
+
+Inscrita en el Registro Mercantil de Madrid, Tomo 7594 Secc. 8º de Soc. Folio 87, hoja M-122846, Inscripción 13ª C.I.F.: B-78032034
+
+
+
+Directiva de instalación de ACMS
+Ágora - ACMS
+
+Versión octubre 2019 
+
+Panel de control → Herramientas administrativas → Directivas
+de seguridad local → Directivas locales → Asignación de
+derechos de usuario.
+
+De igual forma, si se habilita el acceso mediante Remote Desktop, es
+conveniente filtrar las direcciones IP desde las que se permite el
+acceso, limitándolo únicamente a las necesarias.
+Realizar copias de seguridad periódicas de la base de datos y
+almacenarlas en un repositorio externo. Una opción recomendable es
+sincronizar el directorio de backups con Google Drive.
+
+Además de estas consideraciones, debemos tener en cuenta la ubicación
+de la máquina sobre la que se está instalando el ACMS.
+
+Si se trata de una VPS (Virtual Private Server) de un proveedor en la nube,
+es necesario asegurarse de que los backups del servidor estén habilitados
+y realizar la configuración de acceso a la máquina indicada 
+
+Inscrita en el Registro Mercantil de Madrid, Tomo 7594 Secc. 8º de Soc. Folio 87, hoja M-122846, Inscripción 13ª C.I.F.: B-78032034
+
+
+
+Directiva de instalación de ACMS
+Ágora - ACMS
+
+Versión octubre 2019 
+
+anteriormente desde la propia gestión de red del VPS.
+
+Si, por el contrario, el servicio se ofrece desde un servidor propio en el
+que se montan máquinas virtuales, debemos asegurarnos de que el
+rendimiento del sistema es el adecuado.
+En entornos donde todas las máquinas virtuales comparten el mismo
+hardware, el acceso a disco es un factor crítico, ya que puede provocar
+interferencias entre ellas, haciendo que una instancia de ACMS reduzca el
+rendimiento del resto.
+Por ello, se recomienda utilizar un disco lógico para el sistema operativo
+del host y otro u otros para las máquinas virtuales que contienen los ACMS.
+Cada unidad lógica debe estar formada por dos discos físicos en RAID 1.
+La máquina host debe disponer de, al menos, 4 GB de memoria libres, una
+vez descontada la memoria asignada a las máquinas virtuales.
+
+Cuando el sistema está en funcionamiento y tanto los locales como el
+ACMS están operativos, no debe desconectarse ningún local ni restaurarse
+un backup en el mismo.
+
+En los casos en los que es necesario sustituir el servidor del local, el
+proceso a seguir es el siguiente:
+
+1. Instalar en el equipo nuevo la misma versión de Ágora que tenía el
+equipo sustituido.
+
+2.Configurar en el equipo nuevo la misma dirección IP que tenía el
+anterior, así como las impresoras y el resto de características propias
+de la instalación del local.
+
+Inscrita en el Registro Mercantil de Madrid, Tomo 7594 Secc. 8º de Soc. Folio 87, hoja M-122846, Inscripción 13ª C.I.F.: B-78032034
+
+
+
+Directiva de instalación de ACMS
+Ágora - ACMS
+
+Versión octubre 2019 
+
+3.Establecer en el equipo nuevo las mismas credenciales de conexión al
+ACMS que tenía el equipo sustituido.
+
+4.Eliminar en el ACMS el link al equipo.
+
+Tras realizar esta operativa, el local quedará conectado al ACMS. Sin
+embargo, las ventas realizadas no podrán consultarse desde los TPVs del
+propio local, aunque sí habrán sido enviadas al ACMS. Para acceder a
+ellas, será necesario hacerlo a través del módulo de administración.
+
+Si lo que se desea es conservar íntegramente los datos del local, se debe
+seguir el siguiente procedimiento tal y como se detalla a continuación. No
+seguir estas instrucciones al pie de la letra puede provocar una situación
+de inconsistencia en el ACMS y la consiguiente pérdida de datos.
+Es imprescindible partir siempre de un backup realizado justo antes de
+iniciar el proceso. Nunca se debe restaurar un backup anterior.
+
+1.Parar el servicio de Ágora en el local.
+2.Realizar el backup y copiarlo.
+3.Copiar el archivo server.settings.
+4.Apagar y retirar el equipo sustituido de la red para evitar posibles
+
+errores.
+5.Arrancar el equipo sustituto, configurarlo y conectarlo a la red.
+6. Instalar Ágora en el nuevo equipo.
+7.Parar el servicio de Ágora.
+8.Copiar el archivo server.settings del equipo sustituido al nuevo equipo.
+9.Restaurar el backup.
+
+Inscrita en el Registro Mercantil de Madrid, Tomo 7594 Secc. 8º de Soc. Folio 87, hoja M-122846, Inscripción 13ª C.I.F.: B-78032034
+
+
+
+Directiva de instalación de ACMS
+Ágora - ACMS
+
+Versión octubre 2019 
+
+10.El equipo nuevo no conectará inicialmente, ya que el ACMS seguirá
+vinculado al equipo anterior. Es necesario desvincularlo del equipo
+antiguo. Si este proceso se demora, el servicio se detendrá y será
+necesario iniciarlo de nuevo.
+
+11.Sistema recuperado.
+
+Inscrita en el Registro Mercantil de Madrid, Tomo 7594 Secc. 8º de Soc. Folio 87, hoja M-122846, Inscripción 13ª C.I.F.: B-78032034

@@ -1,0 +1,419 @@
+﻿GUIA DE MIGRACIÓN DESDE RETAIL 
+ACMS 
+Rev. Abril 2024 
+
+ 
+En esta guía veremos los pasos para la migración de una versión ACMS de Retail a Ágora 7.6.3. 
+
+ 
+
+Antes de llevar a cabo la migración hay que revisar si tenemos integraciones con terceros montadas en Retail tanto 
+en ACMS como en los locales, de ser así debemos ponernos en contacto con los integradores para revisar si la 
+integración es compatible con Ágora 7.6.3. 
+
+ 
+
+Debemos saber con qué tipo de licencias está funcionando nuestra instalación de Retail tanto en el ACMS como en 
+los Locales. En ACMS si son licencias de SUBSCRIPCIÓN (ACMS + Conectores) se pueden registrar en Ágora 7.6.3 
+simplemente activándolas con sus datos como se hace normalmente. Si por el contrario son licencias tipo BUNDLE 
+hay que solicitar la baja de Retail y solicitar un nuevo alta para Ágora 7.6.3. En cada uno de los locales se seguirán 
+las mismas reglas pudiendo también existir licencias perpetuas, las cuales siguen las mimas normas que las de 
+suscripción, se pueden registrar en Ágora 7.6.3 simplemente activándolas con sus datos como se hace normalmente 
+
+ 
+
+¡IMPORTANTE! Todo el proceso de migración debe realizarse en todos los Locales y el ACMS a la vez, por lo que 
+mientras dure el proceso de migración en ningún local se podrá trabajar. No es posible migrar las base de datos de 
+los locales, será necesario reconectar, por lo que los datos de ventas se conservara únicamente en el ACMS. Si tiene 
+cualquier duda con este punto antes de empezar el proceso de migración póngase en contacto con el departamento 
+de soporte. 
+
+ 
+
+Migración: 
+
+1. En el ACMS Actualizar Retail a la última versión (3.9.1). 
+ 
+
+2. En el ACMS Instalar Ágora 7.6.3 con su SQL. (En el asistente de configuración seleccionar datos de ejemplo o 
+configuración personalizada, es indiferente, ya que luego esa base de datos será sustituida por la de Retail) 
+
+ 
+3. Asegurarnos de que el ACMS ha recibido los últimos datos de todos locales.  
+
+Para revisar esto en cada uno de los locales conectados debemos abrir un navegador y acceder a la dirección 
+localhost:9984 (9984 es el puerto por defecto para la administración de Retail, si en nuestro local por algún 
+motivo hemos cambiado este puerto debemos sustituir el valor 9984 por el correspondiente en la url indicada).  
+Logearnos con nuestro usuario y contraseña, acceder al menú Comunicaciones y en estado de envíos a la central 
+revisar que no existan mensajes pendientes. 
+ 
+
+ 
+
+ 
+
+1 Pág.  Inscrita en el Registro Mercantil de Madrid, Tomo 7594 Secc.8ª de Soc. Folio 87, hoja M-122846, Inscripción 13ª C.I.F.: B-78032034 
+ 
+
+
+
+   
+ 
+
+ 
+
+Si tiene mensajes pendientes como muestra la imagen inferior NO SE PUEDE MIGRAR. 
+
+ 
+ 
+Si por el contrario vemos el estado de envío a la central como Correcto como muestra la imagen inferior, todos 
+los mensajes han llegado al ACMS por lo que SE PUEDE MIGRAR. 
+
+ 
+ 
+Antes de pasar a revisar el estado de los siguientes locales es recomendable pasar al siguiente paso (4) y luego 
+volver a realizar los pasos de este punto con todos los locales uno a uno, de esta forma evitaremos que si 
+tardamos en revisar los demás locales nadie envíe datos que se puedan quedar en pendientes. 
+ 
+ 
+ 
+ 
+ 
+ 
+
+ 
+
+2 Pág.  Inscrita en el Registro Mercantil de Madrid, Tomo 7594 Secc.8ª de Soc. Folio 87, hoja M-122846, Inscripción 13ª C.I.F.: B-78032034 
+ 
+
+
+
+   
+ 
+
+ 
+
+4. Acceder a la administración del ACMS>Administración>Locales, editar uno a uno los locales para parar las 
+comunicaciones, para ello desmarcamos el check de Habilitar comunicaciones en el local que previamente 
+hemos revisado en el paso anterior (3) y que no tiene documentos pendientes de envío. 
+
+ 
+ 
+
+ 
+ 
+(Es recomendable ir local a local realizando los pasos 3 y 4 para evitar que queden documentos pendientes) 
+ 
+ 
+ 
+ 
+ 
+
+3 Pág.  Inscrita en el Registro Mercantil de Madrid, Tomo 7594 Secc.8ª de Soc. Folio 87, hoja M-122846, Inscripción 13ª C.I.F.: B-78032034 
+ 
+
+
+
+   
+ 
+
+ 
+ 
+
+5. Parar el servicio de Ágora en el servidor ACMS. Para ello:  
+-Accedemos a Administración de Equipos>Servicios y aplicaciones>Servicios. 
+
+ 
+ 
+-Buscamos el servicio Ágora Retail lo seleccionamos y pulsamos Detener el servicio. 
+
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+
+4 Pág.  Inscrita en el Registro Mercantil de Madrid, Tomo 7594 Secc.8ª de Soc. Folio 87, hoja M-122846, Inscripción 13ª C.I.F.: B-78032034 
+ 
+
+
+
+   
+ 
+
+ 
+ 
+-Seleccionamos el servicio Ágora Retail>Botón derecho>Propiedades. 
+
+ 
+ 
+-En la pestaña General en Tipo de inicio seleccionar Deshabilitado y pulsar aceptar para guardar los cambios. 
+
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+
+5 Pág.  Inscrita en el Registro Mercantil de Madrid, Tomo 7594 Secc.8ª de Soc. Folio 87, hoja M-122846, Inscripción 13ª C.I.F.: B-78032034 
+ 
+
+
+
+   
+ 
+
+ 
+ 
+
+6. Realizar un Backup de Retail en el servidor ACMS. 
+
+ 
+ 
+ 
+ 
+
+7. Descomprimir el zip del migrador en cualquier ruta del equipo de ACMS. 
+ 
+
+8. En la carpeta donde previamente hemos descomprimido el migrador copiar el Backup del ACMS realizado y el 
+sever.settings.xml del ACMS Retail (Este último lo encontraremos dentro de la carpeta de instalación de Ágora 
+Retail)  
+
+ 
+
+ 
+ 
+ 
+
+6 Pág.  Inscrita en el Registro Mercantil de Madrid, Tomo 7594 Secc.8ª de Soc. Folio 87, hoja M-122846, Inscripción 13ª C.I.F.: B-78032034 
+ 
+
+
+
+   
+ 
+
+ 
+ 
+
+9. Ejecutar migrador.cmd como Administrador y automáticamente empezará la migración. 
+ 
+
+ 
+
+ 
+
+10. Una vez finalizada nos mostrará el resultado, si no se muestra ningún error la migración habrá finalizado con 
+éxito y nos pedirá pulsar cualquier tecla para finalizar. 
+
+ 
+ 
+
+11. Activamos las licencias de ACMS en Ágora 7.6.3 teniendo en cuenta lo comentado al inicio del documento. 
+ 
+
+12. Ejecutar la administración ACMS de Ágora 7.6.3 y revisar que los datos se han migrado correctamente. 
+ 
+
+7 Pág.  Inscrita en el Registro Mercantil de Madrid, Tomo 7594 Secc.8ª de Soc. Folio 87, hoja M-122846, Inscripción 13ª C.I.F.: B-78032034 
+ 
+
+
+
+   
+ 
+
+ 
+
+ 
+
+13. Desinstalar Ágora Retail. 
+
+ 
+ 
+ 
+
+ 
+ 
+ 
+
+ 
+14. Deshabilitar y detener el servicio SQL Server (AGORARETAIL). Para ello:  
+
+-Accedemos a Administración de Equipos>Servicios y aplicaciones>Servicios. 
+
+ 
+ 
+ 
+ 
+
+8 Pág.  Inscrita en el Registro Mercantil de Madrid, Tomo 7594 Secc.8ª de Soc. Folio 87, hoja M-122846, Inscripción 13ª C.I.F.: B-78032034 
+ 
+
+
+
+   
+ 
+
+ 
+ 
+ 
+-Buscamos el servicio SQL Server (AGORARETAIL), lo seleccionamos y pulsamos Detener el servicio. 
+
+ 
+ 
+-Seleccionamos el servicio SQL Server (AGORARETAIL)>Botón derecho>Propiedades. 
+
+ 
+
+9 Pág.  Inscrita en el Registro Mercantil de Madrid, Tomo 7594 Secc.8ª de Soc. Folio 87, hoja M-122846, Inscripción 13ª C.I.F.: B-78032034 
+ 
+
+
+
+   
+ 
+
+ 
+
+ 
+
+-En la pestaña General en Tipo de inicio seleccionar Deshabilitado y pulsar aceptar para guardar los cambios. 
+
+ 
+ 
+
+15. Habilitar la comunicación de todos los locales y eliminar la asociación anterior, para ello acceder a la 
+administración del ACMS 7.6.3>Administración>Locales, editar uno a uno los locales marcando el check de 
+Habilitar comunicaciones y pulsando Eliminar asociación. 
+
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+
+10 Pág.  Inscrita en el Registro Mercantil de Madrid, Tomo 7594 Secc.8ª de Soc. Folio 87, hoja M-122846, Inscripción 13ª C.I.F.: B-78032034 
+ 
+
+
+
+   
+ 
+
+ 
+¡IMPORTANTE! En los locales no es posible mantener la base de datos pasando el migrador con todo lo que eso 
+implica, por lo que solo habrá que seguir los pasos que se detallan a continuación en cada uno de los locales. 
+ 
+
+16. Desinstalar Ágora Retail en el local. 
+
+ 
+ 
+ 
+ 
+
+17. Deshabilitar y detener el servicio SQL Server (AGORARETAIL) en el local. Para ello:  
+-Accedemos a Administración de Equipos>Servicios y aplicaciones>Servicios. 
+
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+
+11 Pág.  Inscrita en el Registro Mercantil de Madrid, Tomo 7594 Secc.8ª de Soc. Folio 87, hoja M-122846, Inscripción 13ª C.I.F.: B-78032034 
+ 
+
+
+
+   
+ 
+
+ 
+-Buscamos el servicio SQL Server (AGORARETAIL), lo seleccionamos y pulsamos Detener el servicio. 
+
+ 
+ 
+-Seleccionamos el servicio SQL Server (AGORARETAIL)>Botón derecho>Propiedades. 
+
+ 
+
+ 
+
+12 Pág.  Inscrita en el Registro Mercantil de Madrid, Tomo 7594 Secc.8ª de Soc. Folio 87, hoja M-122846, Inscripción 13ª C.I.F.: B-78032034 
+ 
+
+
+
+   
+ 
+
+ 
+
+-En la pestaña General en Tipo de inicio seleccionar Deshabilitado y pulsar aceptar para guardar los cambios. 
+
+ 
+ 
+
+18. Instalar Ágora 7.6.3 en los local. 
+ 
+
+19. Activar las licencias correspondientes del local en Ágora 7.6.3, teniendo en cuenta lo comentado al inicio del 
+documento. 
+ 
+
+20. Conectar Ágora 7.6.3 del local con el ACMS 7.6.3 que ya migramos previamente, para ello tendremos que 
+introducir la URL del ACMS junto con su puerto y la clave de conexión correspondiente al local en el que 
+estamos actuando desde el monitor servidor de Ágora. 
+
+ 
+ 
+ 
+ 
+
+13 Pág.  Inscrita en el Registro Mercantil de Madrid, Tomo 7594 Secc.8ª de Soc. Folio 87, hoja M-122846, Inscripción 13ª C.I.F.: B-78032034 
+ 
+
+
+
+   
+ 
+
+ 
+21. Desde la administración del ACMS Ágora 7.6.3 debemos enviar los datos al local que acabamos de conectar. 
+
+ 
+ 
+Repetiremos los pasos 16 a 21 con cada uno de los locales que conecten al ACMS migrado. 
+ 
+
+22. Si hemos seguido todos los pasos ya podemos utilizar Ágora 7.6.3 con total normalidad con los datos que 
+teníamos previamente en Retail. Si fuese necesario, con la base de datos ya migrada se podría actualizar a una 
+versión más moderna de Ágora siguiendo para ello el procedimiento habitual. 
+ 
+ 
+
+ 
+
+ 
+
+14 Pág.  Inscrita en el Registro Mercantil de Madrid, Tomo 7594 Secc.8ª de Soc. Folio 87, hoja M-122846, Inscripción 13ª C.I.F.: B-78032034
