@@ -10,50 +10,62 @@ exports.handler = async function(event, context) {
     };
 
     if (event.httpMethod === "OPTIONS") return { statusCode: 200, headers, body: "OK" };
-    if (event.httpMethod !== "POST") return { statusCode: 405, headers, body: "Method Not Allowed" };
 
     const GEMINI_API_KEY = process.env.GEMINI_API_KEY;
     if (!GEMINI_API_KEY) {
-         return { statusCode: 200, headers, body: JSON.stringify({ reply: "ERROR: Falta la API Key de Gemini en el servidor." }) };
+         return { statusCode: 200, headers, body: JSON.stringify({ reply: "ERROR: Falta la API Key." }) };
     }
 
     try {
         const body = JSON.parse(event.body);
-        const userMessage = body.message;
+        const userMessage = body.message.toLowerCase();
 
-        // 1. LEER LOS PDFs DE LA CARPETA
+        // 1. EXTRAER TEXTO DE TODOS LOS PDFs
         const pdfFolder = path.join(__dirname, 'pdfs');
-        let contextoPDF = "";
+        let fullText = "";
         
         if (fs.existsSync(pdfFolder)) {
             const files = fs.readdirSync(pdfFolder).filter(file => file.toLowerCase().endsWith('.pdf'));
             for (const file of files) {
                 const dataBuffer = fs.readFileSync(path.join(pdfFolder, file));
                 const data = await pdf(dataBuffer);
-                contextoPDF += `\n--- INICIO DEL DOCUMENTO: ${file} ---\n${data.text}\n--- FIN DEL DOCUMENTO: ${file} ---\n`;
+                fullText += data.text + "\n";
             }
         }
 
-        if (!contextoPDF) {
-            contextoPDF = "No hay documentos disponibles en el archivo histórico.";
+        // 2. SISTEMA DE BÚSQUEDA (RAG SIMPLE)
+        // Dividimos el texto en párrafos o bloques de ~1000 caracteres
+        const chunks = fullText.split(/\n\n+/); 
+        
+        // Buscamos las palabras clave de la pregunta del usuario
+        const keywords = userMessage.split(' ').filter(w => w.length > 3);
+        
+        // Filtramos solo los bloques que contienen alguna palabra clave
+        let relevantContext = chunks
+            .filter(chunk => {
+                const chunkLower = chunk.toLowerCase();
+                return keywords.some(word => chunkLower.includes(word));
+            })
+            .slice(0, 10) // Nos quedamos solo con los 10 fragmentos más importantes
+            .join("\n---\n");
+
+        // Si no encontramos nada específico, enviamos un resumen inicial
+        if (!relevantContext) {
+            relevantContext = fullText.substring(0, 3000); 
         }
 
-        // 2. INSTRUCCIONES DE SISTEMA (Sintetizar sin inventar)
+        // 3. INSTRUCCIONES DE SISTEMA
         const systemInstruction = `
-        Eres IA-AGORA, un oráculo de conocimiento sereno, culto y preciso.
-        
-        REGLAS ESTRICTAS:
-        1. Tu única fuente de verdad son los DOCUMENTOS DEL ÁGORA proporcionados abajo.
-        2. Tienes libertad para sintetizar, resumir y redactar la respuesta de forma natural, estructurada y elegante.
-        3. NUNCA debes inventar, deducir o agregar datos, nombres, fechas o hechos que no estén explícitamente en los textos.
-        4. Si la consulta del usuario NO puede responderse con la información de los documentos, responde exactamente esto: "Lo lamento, buscador. Esa información no se encuentra en mis registros actuales." No intentes adivinar.
-        
-        DOCUMENTOS DEL ÁGORA:
-        ${contextoPDF}
+        Eres IA-AGORA. Responde usando SOLO los fragmentos de documentos proporcionados.
+        Sintetiza la respuesta pero no inventes nada. 
+        Si el dato no está en estos fragmentos, di que no lo sabes.
+
+        FRAGMENTOS RELEVANTES DE LOS DOCUMENTOS:
+        ${relevantContext}
         `;
 
-        // 3. LLAMADA A GEMINI
-        const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=${GEMINI_API_KEY}`;
+        // 4. LLAMADA A GEMINI
+        const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${GEMINI_API_KEY}`;
         
         const response = await fetch(url, {
             method: 'POST',
@@ -61,25 +73,19 @@ exports.handler = async function(event, context) {
             body: JSON.stringify({
                 system_instruction: { parts: [{ text: systemInstruction }] },
                 contents: [{ role: "user", parts: [{ text: userMessage }] }],
-                generationConfig: { 
-                    temperature: 0.2, // Lo justo para redactar bien, pero muy bajo para no alucinar datos
-                    topK: 10,
-                    topP: 0.8
-                }
+                generationConfig: { temperature: 0.1 } 
             })
         });
 
         const data = await response.json();
-
+        
         if (data.candidates && data.candidates[0].content) {
-            const reply = data.candidates[0].content.parts[0].text;
-            return { statusCode: 200, headers, body: JSON.stringify({ reply: reply }) };
+            return { statusCode: 200, headers, body: JSON.stringify({ reply: data.candidates[0].content.parts[0].text }) };
         } else {
-            return { statusCode: 200, headers, body: JSON.stringify({ reply: "El oráculo no ha podido procesar la solicitud." }) };
+            return { statusCode: 200, headers, body: JSON.stringify({ reply: "No he encontrado datos exactos en los documentos." }) };
         }
 
     } catch (error) {
-        console.error(error);
-        return { statusCode: 200, headers, body: JSON.stringify({ reply: "Se ha perdido la conexión con los archivos del Ágora." }) };
+        return { statusCode: 200, headers, body: JSON.stringify({ reply: "Error procesando los archivos." }) };
     }
 };
