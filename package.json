@@ -1,5 +1,5 @@
 {
-  "name": "agora-backend",
+  "name": "ia-agora",
   "version": "1.0.0",
   "dependencies": {
     "pdf-parse": "^1.1.1"

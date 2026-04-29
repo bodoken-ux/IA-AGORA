@@ -1,64 +1,39 @@
 document.getElementById('input-area').addEventListener('submit', async (e) => {
     e.preventDefault();
-    
     const input = document.getElementById('user-input');
+    const chatBox = document.getElementById('chat-box');
     const text = input.value.trim();
     if (!text) return;
 
-    // Mostrar el mensaje del usuario
-    appendMessage('user', text);
-    input.value = '';
-    input.disabled = true;
+    // Mensaje usuario
+    const userDiv = document.createElement('div');
+    userDiv.className = 'message user';
+    userDiv.innerText = text;
+    chatBox.appendChild(userDiv);
     
-    // Mostrar mensaje de carga
-    const loadingId = appendMessage('system', 'Consultando los archivos...');
+    input.value = '';
+    const loadingId = 'loading-' + Date.now();
+    const loadDiv = document.createElement('div');
+    loadDiv.id = loadingId;
+    loadDiv.className = 'message system';
+    loadDiv.innerHTML = '<strong>ÁGORA:</strong> Buscando en los archivos...';
+    chatBox.appendChild(loadDiv);
+    chatBox.scrollTop = chatBox.scrollHeight;
 
     try {
-        const response = await fetch('/.netlify/functions/chat', {
+        const res = await fetch('/.netlify/functions/chat', {
             method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ message: text })
         });
+        const data = await res.json();
+        document.getElementById(loadingId).remove();
         
-        const data = await response.json();
-        
-        // Quitar el mensaje de carga y poner la respuesta real
-        removeMessage(loadingId);
-        
-        if (data.reply) {
-            appendMessage('system', data.reply);
-        } else {
-            appendMessage('system', 'Error: Respuesta vacía del oráculo.');
-        }
-        
-    } catch (error) {
-        removeMessage(loadingId);
-        appendMessage('system', 'Error de conexión con la red principal.');
+        const sysDiv = document.createElement('div');
+        sysDiv.className = 'message system';
+        sysDiv.innerHTML = `<strong>ÁGORA:</strong> ${data.reply}`;
+        chatBox.appendChild(sysDiv);
+    } catch (e) {
+        document.getElementById(loadingId).innerText = 'Error de conexión.';
     }
-
-    input.disabled = false;
-    input.focus();
+    chatBox.scrollTop = chatBox.scrollHeight;
 });
-
-function appendMessage(role, text) {
-    const chatBox = document.getElementById('chat-box');
-    const div = document.createElement('div');
-    const id = 'msg-' + Date.now();
-    div.id = id;
-    div.className = `message ${role}`;
-    
-    if (role === 'system') {
-        div.innerHTML = `<strong>ÁGORA:</strong> ${text}`;
-    } else {
-        div.innerText = text;
-    }
-    
-    chatBox.appendChild(div);
-    chatBox.scrollTop = chatBox.scrollHeight; // Hace scroll hacia abajo automáticamente
-    return id;
-}
-
-function removeMessage(id) {
-    const el = document.getElementById(id);
-    if (el) el.remove();
-}
