@@ -18,7 +18,10 @@ exports.handler = async function(event, context) {
 
     try {
         const body = JSON.parse(event.body);
-        const userMessage = body.message.toLowerCase();
+        const userMessage = body.message;
+
+        // Función para normalizar texto (Quita tildes y lo pone en minúsculas)
+        const normalize = (str) => str.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase();
 
         // 1. LEER TODOS LOS PDFs
         let pdfFolder = path.join(__dirname, 'pdfs');
@@ -32,65 +35,87 @@ exports.handler = async function(event, context) {
             for (const file of files) {
                 const dataBuffer = fs.readFileSync(path.join(pdfFolder, file));
                 const data = await pdf(dataBuffer);
-                fullText += data.text + "\n";
+                // Ponemos una marca para saber de qué manual viene
+                fullText += `\n--- MANUAL: ${file} ---\n` + data.text + "\n";
             }
         }
 
         if (fullText.trim() === "") {
-             return { statusCode: 200, headers, body: JSON.stringify({ reply: "Los PDFs están vacíos o son imágenes escaneadas sin texto digital." }) };
+             return { statusCode: 200, headers, body: JSON.stringify({ reply: "Los manuales están vacíos o son imágenes escaneadas." }) };
         }
 
-        // 2. SISTEMA DE BÚSQUEDA INTELIGENTE CON PUNTUACIÓN (SCORING)
-        // Dividimos el texto en fragmentos
-        const chunks = fullText.split(/\n\n+/); 
+        // 2. CHUNKING CON SOLAPAMIENTO (Para no cortar instrucciones a medias)
+        const lines = fullText.split(/\n/);
+        let chunks = [];
+        let currentChunk = "";
         
-        // Sacamos las palabras clave de la pregunta (ignorando palabras muy cortas como "el", "la", "de")
-        const keywords = userMessage.split(/\W+/).filter(w => w.length > 3);
+        for (const line of lines) {
+            if (line.trim() === "") continue;
+            currentChunk += line + " "; // Vamos sumando líneas
+            
+            // Cuando el trozo tiene unos 1200 caracteres, lo guardamos
+            if (currentChunk.length > 1200) {
+                chunks.push(currentChunk);
+                // Mantenemos los últimos 300 caracteres para el siguiente bloque (Solapamiento)
+                currentChunk = currentChunk.substring(currentChunk.length - 300);
+            }
+        }
+        if (currentChunk.length > 0) chunks.push(currentChunk);
+
+        // 3. BÚSQUEDA INTELIGENTE
+        const normalizedMessage = normalize(userMessage);
+        // Sacamos palabras clave de más de 3 letras
+        let keywords = normalizedMessage.split(/\W+/).filter(w => w.length > 3);
         
-        // Evaluamos cada fragmento y le damos puntos
+        if (keywords.length === 0) {
+            // Si el usuario pone algo muy corto como "TPV", lo usamos entero
+            keywords = [normalizedMessage.trim()];
+        }
+
         const scoredChunks = chunks.map(chunk => {
             let score = 0;
-            const chunkLower = chunk.toLowerCase();
+            const normalizedChunk = normalize(chunk);
             
             keywords.forEach(word => {
-                // Contamos cuántas veces aparece cada palabra clave en este fragmento
-                const regex = new RegExp(word, 'g');
-                const matches = chunkLower.match(regex);
+                // Truco para manuales: Quitamos la 's' final para que "facturas" coincida con "factura"
+                const root = word.endsWith('s') ? word.slice(0, -1) : word;
+                const regex = new RegExp(root, 'g');
+                const matches = normalizedChunk.match(regex);
                 if (matches) {
-                    score += matches.length; // Suma 1 punto por cada coincidencia
+                    score += matches.length; 
                 }
             });
             
             return { text: chunk, score: score };
         });
 
-        // Filtramos los que tienen 0 puntos, ordenamos de mayor a menor puntuación y nos quedamos los 8 mejores
+        // Nos quedamos con los 10 bloques con más información sobre la pregunta
         let relevantContext = scoredChunks
             .filter(c => c.score > 0)
             .sort((a, b) => b.score - a.score)
-            .slice(0, 8) 
+            .slice(0, 10) 
             .map(c => c.text)
-            .join("\n---\n");
+            .join("\n\n[...]\n\n"); // Separador claro para la IA
 
-        // Si no encuentra nada, le pasamos el principio de los documentos para que pueda al menos saludar o saber de qué va
         if (!relevantContext) {
             relevantContext = fullText.substring(0, 3000); 
         }
 
-        // 3. INSTRUCCIONES ESTRICTAS PARA LA IA
+        // 4. INSTRUCCIONES PARA LA IA (Orientadas a Manuales Técnicos)
         const systemInstruction = `
-        Eres IA-AGORA, un oráculo culto y preciso.
+        Eres IA-AGORA, un asistente técnico experto en el software Ágora.
         
-        REGLAS:
-        1. Responde a la pregunta usando SOLO la información de los FRAGMENTOS proporcionados abajo.
-        2. Sintetiza la información de forma elegante.
-        3. NO INVENTES NADA. Si la respuesta no está en los fragmentos, di: "Lo lamento, buscador. Esa información no consta en los archivos indexados."
+        REGLAS ESTRICTAS:
+        1. Tu objetivo es explicar cómo hacer cosas en el programa basándote EXCLUSIVAMENTE en los fragmentos del manual proporcionados.
+        2. Si la respuesta implica pasos (1, 2, 3...), formatea tu respuesta en una lista clara o viñetas.
+        3. NO INVENTES opciones, botones ni menús que no estén en el texto.
+        4. Si te preguntan algo que no aparece en los fragmentos, responde EXACTAMENTE: "Lo lamento, buscador. No encuentro el procedimiento exacto en los manuales de Ágora que he indexado."
 
-        FRAGMENTOS MÁS RELEVANTES EXTRAÍDOS:
+        FRAGMENTOS DEL MANUAL:
         ${relevantContext}
         `;
 
-        // 4. LLAMADA A GEMINI
+        // 5. LLAMADA A GEMINI
         const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=${GEMINI_API_KEY}`;
         
         const response = await fetch(url, {
@@ -99,7 +124,7 @@ exports.handler = async function(event, context) {
             body: JSON.stringify({
                 system_instruction: { parts: [{ text: systemInstruction }] },
                 contents: [{ role: "user", parts: [{ text: userMessage }] }],
-                generationConfig: { temperature: 0.1 } // Temperatura baja para no alucinar
+                generationConfig: { temperature: 0.1 } // Muy bajo para que sea estrictamente técnico
             })
         });
 
@@ -110,11 +135,10 @@ exports.handler = async function(event, context) {
         }
 
         if (data.candidates && data.candidates[0].content) {
-            return { statusCode: 200, headers, body: JSON.stringify({ reply: data.candidates[0].content.parts[0].text }) };
-        } else if (data.candidates && data.candidates[0].finishReason) {
-            return { statusCode: 200, headers, body: JSON.stringify({ reply: `La respuesta fue bloqueada por filtros de seguridad.` }) };
+            const replyText = data.candidates[0].content.parts[0].text;
+            return { statusCode: 200, headers, body: JSON.stringify({ reply: replyText }) };
         } else {
-            return { statusCode: 200, headers, body: JSON.stringify({ reply: `Error de conexión. Respuesta vacía.` }) };
+            return { statusCode: 200, headers, body: JSON.stringify({ reply: `Error o respuesta bloqueada por seguridad.` }) };
         }
 
     } catch (error) {
