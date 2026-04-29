@@ -13,68 +13,84 @@ exports.handler = async function(event, context) {
 
     const GEMINI_API_KEY = process.env.GEMINI_API_KEY;
     if (!GEMINI_API_KEY) {
-         return { statusCode: 200, headers, body: JSON.stringify({ reply: "DIAGNÓSTICO: Falta la API Key." }) };
+         return { statusCode: 200, headers, body: JSON.stringify({ reply: "Falta la API Key en Netlify." }) };
     }
 
     try {
         const body = JSON.parse(event.body);
         const userMessage = body.message.toLowerCase();
 
-        // 1. EXTRAER TEXTO DE TODOS LOS PDFs
-        // En Netlify, a veces __dirname cambia. Usamos process.cwd() como respaldo.
+        // 1. LEER TODOS LOS PDFs
         let pdfFolder = path.join(__dirname, 'pdfs');
         if (!fs.existsSync(pdfFolder)) {
             pdfFolder = path.join(process.cwd(), 'netlify/functions/pdfs');
         }
 
         let fullText = "";
-        
         if (fs.existsSync(pdfFolder)) {
             const files = fs.readdirSync(pdfFolder).filter(file => file.toLowerCase().endsWith('.pdf'));
-            if (files.length === 0) {
-                 return { statusCode: 200, headers, body: JSON.stringify({ reply: "DIAGNÓSTICO: La carpeta 'pdfs' existe, pero está vacía. No hay archivos .pdf dentro." }) };
-            }
-            
             for (const file of files) {
                 const dataBuffer = fs.readFileSync(path.join(pdfFolder, file));
                 const data = await pdf(dataBuffer);
                 fullText += data.text + "\n";
             }
-        } else {
-             return { statusCode: 200, headers, body: JSON.stringify({ reply: "DIAGNÓSTICO: El servidor no encuentra la carpeta 'pdfs'. Asegúrate de que está dentro de 'netlify/functions/'." }) };
         }
 
         if (fullText.trim() === "") {
-             return { statusCode: 200, headers, body: JSON.stringify({ reply: "DIAGNÓSTICO: Los PDFs se han encontrado, pero el programa no pudo extraer ni una sola letra. Probablemente son imágenes escaneadas o están encriptados." }) };
+             return { statusCode: 200, headers, body: JSON.stringify({ reply: "Los PDFs están vacíos o son imágenes escaneadas sin texto digital." }) };
         }
 
-        // 2. SISTEMA DE BÚSQUEDA (RAG SIMPLE)
+        // 2. SISTEMA DE BÚSQUEDA INTELIGENTE CON PUNTUACIÓN (SCORING)
+        // Dividimos el texto en fragmentos
         const chunks = fullText.split(/\n\n+/); 
-        const keywords = userMessage.split(' ').filter(w => w.length > 3);
         
-        let relevantContext = chunks
-            .filter(chunk => {
-                const chunkLower = chunk.toLowerCase();
-                return keywords.some(word => chunkLower.includes(word));
-            })
-            .slice(0, 10) 
+        // Sacamos las palabras clave de la pregunta (ignorando palabras muy cortas como "el", "la", "de")
+        const keywords = userMessage.split(/\W+/).filter(w => w.length > 3);
+        
+        // Evaluamos cada fragmento y le damos puntos
+        const scoredChunks = chunks.map(chunk => {
+            let score = 0;
+            const chunkLower = chunk.toLowerCase();
+            
+            keywords.forEach(word => {
+                // Contamos cuántas veces aparece cada palabra clave en este fragmento
+                const regex = new RegExp(word, 'g');
+                const matches = chunkLower.match(regex);
+                if (matches) {
+                    score += matches.length; // Suma 1 punto por cada coincidencia
+                }
+            });
+            
+            return { text: chunk, score: score };
+        });
+
+        // Filtramos los que tienen 0 puntos, ordenamos de mayor a menor puntuación y nos quedamos los 8 mejores
+        let relevantContext = scoredChunks
+            .filter(c => c.score > 0)
+            .sort((a, b) => b.score - a.score)
+            .slice(0, 8) 
+            .map(c => c.text)
             .join("\n---\n");
 
+        // Si no encuentra nada, le pasamos el principio de los documentos para que pueda al menos saludar o saber de qué va
         if (!relevantContext) {
             relevantContext = fullText.substring(0, 3000); 
         }
 
-        // 3. INSTRUCCIONES DE SISTEMA
+        // 3. INSTRUCCIONES ESTRICTAS PARA LA IA
         const systemInstruction = `
-        Eres IA-AGORA. Responde usando SOLO los fragmentos de documentos proporcionados.
-        Sintetiza la respuesta pero no inventes nada. 
-        Si el dato no está en estos fragmentos, di que no lo sabes.
+        Eres IA-AGORA, un oráculo culto y preciso.
+        
+        REGLAS:
+        1. Responde a la pregunta usando SOLO la información de los FRAGMENTOS proporcionados abajo.
+        2. Sintetiza la información de forma elegante.
+        3. NO INVENTES NADA. Si la respuesta no está en los fragmentos, di: "Lo lamento, buscador. Esa información no consta en los archivos indexados."
 
-        FRAGMENTOS RELEVANTES DE LOS DOCUMENTOS:
+        FRAGMENTOS MÁS RELEVANTES EXTRAÍDOS:
         ${relevantContext}
         `;
 
-        // 4. LLAMADA A GEMINI (¡Corregido a la versión 2.5!)
+        // 4. LLAMADA A GEMINI
         const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=${GEMINI_API_KEY}`;
         
         const response = await fetch(url, {
@@ -83,26 +99,25 @@ exports.handler = async function(event, context) {
             body: JSON.stringify({
                 system_instruction: { parts: [{ text: systemInstruction }] },
                 contents: [{ role: "user", parts: [{ text: userMessage }] }],
-                generationConfig: { temperature: 0.1 } 
+                generationConfig: { temperature: 0.1 } // Temperatura baja para no alucinar
             })
         });
 
         const data = await response.json();
         
-        // 5. ANÁLISIS DEL ERROR EXACTO DE GOOGLE
         if (!response.ok || data.error) {
-            return { statusCode: 200, headers, body: JSON.stringify({ reply: `DIAGNÓSTICO DE GOOGLE: ${data.error?.message || "Error desconocido"}` }) };
+            return { statusCode: 200, headers, body: JSON.stringify({ reply: `ERROR: ${data.error?.message}` }) };
         }
 
         if (data.candidates && data.candidates[0].content) {
             return { statusCode: 200, headers, body: JSON.stringify({ reply: data.candidates[0].content.parts[0].text }) };
         } else if (data.candidates && data.candidates[0].finishReason) {
-            return { statusCode: 200, headers, body: JSON.stringify({ reply: `DIAGNÓSTICO: Google Gemini bloqueó la respuesta. Motivo: ${data.candidates[0].finishReason} (Suele ser por Filtros de Seguridad)` }) };
+            return { statusCode: 200, headers, body: JSON.stringify({ reply: `La respuesta fue bloqueada por filtros de seguridad.` }) };
         } else {
-            return { statusCode: 200, headers, body: JSON.stringify({ reply: `DIAGNÓSTICO DESCONOCIDO: La respuesta vino en blanco. Estructura recibida: ${JSON.stringify(data)}` }) };
+            return { statusCode: 200, headers, body: JSON.stringify({ reply: `Error de conexión. Respuesta vacía.` }) };
         }
 
     } catch (error) {
-        return { statusCode: 200, headers, body: JSON.stringify({ reply: `DIAGNÓSTICO FATAL: Error interno del servidor -> ${error.message}` }) };
+        return { statusCode: 200, headers, body: JSON.stringify({ reply: `Error del servidor: ${error.message}` }) };
     }
 };
