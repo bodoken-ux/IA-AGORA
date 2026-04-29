@@ -125,3 +125,22 @@ header p {
     background: var(--gold);
     color: var(--bg-color);
 }
+
+/* --- ESTILOS DEL NUEVO BOTÓN DE VOZ --- */
+#mute-btn {
+    margin-top: 15px;
+    background: transparent;
+    color: var(--gold);
+    border: 1px solid var(--gold);
+    padding: 5px 15px;
+    font-family: 'Cinzel', serif;
+    font-size: 0.8rem;
+    cursor: pointer;
+    border-radius: 4px;
+    transition: all 0.3s;
+}
+
+#mute-btn:hover {
+    background: var(--gold);
+    color: var(--bg-color);
+}
