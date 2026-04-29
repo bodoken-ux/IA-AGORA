@@ -13,7 +13,7 @@ exports.handler = async function(event, context) {
 
     const GEMINI_API_KEY = process.env.GEMINI_API_KEY;
     if (!GEMINI_API_KEY) {
-         return { statusCode: 200, headers, body: JSON.stringify({ reply: "ERROR: Falta la API Key." }) };
+         return { statusCode: 200, headers, body: JSON.stringify({ reply: "DIAGNÓSTICO: Falta la API Key." }) };
     }
 
     try {
@@ -21,35 +21,45 @@ exports.handler = async function(event, context) {
         const userMessage = body.message.toLowerCase();
 
         // 1. EXTRAER TEXTO DE TODOS LOS PDFs
-        const pdfFolder = path.join(__dirname, 'pdfs');
+        // En Netlify, a veces __dirname cambia. Usamos process.cwd() como respaldo.
+        let pdfFolder = path.join(__dirname, 'pdfs');
+        if (!fs.existsSync(pdfFolder)) {
+            pdfFolder = path.join(process.cwd(), 'netlify/functions/pdfs');
+        }
+
         let fullText = "";
         
         if (fs.existsSync(pdfFolder)) {
             const files = fs.readdirSync(pdfFolder).filter(file => file.toLowerCase().endsWith('.pdf'));
+            if (files.length === 0) {
+                 return { statusCode: 200, headers, body: JSON.stringify({ reply: "DIAGNÓSTICO: La carpeta 'pdfs' existe, pero está vacía. No hay archivos .pdf dentro." }) };
+            }
+            
             for (const file of files) {
                 const dataBuffer = fs.readFileSync(path.join(pdfFolder, file));
                 const data = await pdf(dataBuffer);
                 fullText += data.text + "\n";
             }
+        } else {
+             return { statusCode: 200, headers, body: JSON.stringify({ reply: "DIAGNÓSTICO: El servidor no encuentra la carpeta 'pdfs'. Asegúrate de que está dentro de 'netlify/functions/'." }) };
+        }
+
+        if (fullText.trim() === "") {
+             return { statusCode: 200, headers, body: JSON.stringify({ reply: "DIAGNÓSTICO: Los PDFs se han encontrado, pero el programa no pudo extraer ni una sola letra. Probablemente son imágenes escaneadas o están encriptados." }) };
         }
 
         // 2. SISTEMA DE BÚSQUEDA (RAG SIMPLE)
-        // Dividimos el texto en párrafos o bloques de ~1000 caracteres
         const chunks = fullText.split(/\n\n+/); 
-        
-        // Buscamos las palabras clave de la pregunta del usuario
         const keywords = userMessage.split(' ').filter(w => w.length > 3);
         
-        // Filtramos solo los bloques que contienen alguna palabra clave
         let relevantContext = chunks
             .filter(chunk => {
                 const chunkLower = chunk.toLowerCase();
                 return keywords.some(word => chunkLower.includes(word));
             })
-            .slice(0, 10) // Nos quedamos solo con los 10 fragmentos más importantes
+            .slice(0, 10) 
             .join("\n---\n");
 
-        // Si no encontramos nada específico, enviamos un resumen inicial
         if (!relevantContext) {
             relevantContext = fullText.substring(0, 3000); 
         }
@@ -79,13 +89,20 @@ exports.handler = async function(event, context) {
 
         const data = await response.json();
         
+        // 5. ANÁLISIS DEL ERROR EXACTO DE GOOGLE
+        if (!response.ok || data.error) {
+            return { statusCode: 200, headers, body: JSON.stringify({ reply: `DIAGNÓSTICO DE GOOGLE: ${data.error?.message || "Error desconocido"}` }) };
+        }
+
         if (data.candidates && data.candidates[0].content) {
             return { statusCode: 200, headers, body: JSON.stringify({ reply: data.candidates[0].content.parts[0].text }) };
+        } else if (data.candidates && data.candidates[0].finishReason) {
+            return { statusCode: 200, headers, body: JSON.stringify({ reply: `DIAGNÓSTICO: Google Gemini bloqueó la respuesta. Motivo: ${data.candidates[0].finishReason} (Suele ser por Filtros de Seguridad)` }) };
         } else {
-            return { statusCode: 200, headers, body: JSON.stringify({ reply: "No he encontrado datos exactos en los documentos." }) };
+            return { statusCode: 200, headers, body: JSON.stringify({ reply: `DIAGNÓSTICO DESCONOCIDO: La respuesta vino en blanco. Estructura recibida: ${JSON.stringify(data)}` }) };
         }
 
     } catch (error) {
-        return { statusCode: 200, headers, body: JSON.stringify({ reply: "Error procesando los archivos." }) };
+        return { statusCode: 200, headers, body: JSON.stringify({ reply: `DIAGNÓSTICO FATAL: Error interno del servidor -> ${error.message}` }) };
     }
 };
